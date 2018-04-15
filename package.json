@@ -1,0 +1,22 @@
+{
+  "name": "cryptoquest",
+  "version": "1.0.0",
+  "description": "Portal for hosting CTF competetion",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Suyash Mittal <suyash8514@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "dotenv": "^5.0.1",
+    "express": "^4.16.2",
+    "express-validator": "^5.0.3",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.9",
+    "morgan": "^1.9.0"
+  }
+}

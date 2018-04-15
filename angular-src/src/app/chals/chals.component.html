@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-md-4">
+        <ul class="list-group">
+            <li class="list-group-item text-center rounded-0" routerLink="/chals/add" *ngIf="isAdmin()"><i class="fa fa-plus-circle"></i></li>
+            <li class="list-group-item d-flex justify-content-between align-items-center rounded-0" *ngFor="let chal of chals; let i = index" (click)="displayChal(i)" [ngClass]="{'solved': solved[i], 'active': i===index}">
+                {{chal.title}}
+                <span class="badge badge-secondary badge-pill">{{chal.points}}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-8">
+        <div class="card rounded-0">
+            <div class="card-header" *ngIf="selected" data-toggle="modal" data-target="#solvedModal">
+                <div style="float:left"><span [innerText]="title" id="problem-name"></span> -<small [innerText]="author"></small></div>
+                <div id="problem-points" style="float:right" [innerText]="points"></div>
+                <div style="clear:both"></div>
+            </div>
+            <div class="card-body">
+                <div id="problem-desc" [innerHtml]="desc"></div>
+                <div id="problem-file"></div>
+            </div>
+            <form [formGroup]="flagForm" (ngSubmit)="submitFlag()">
+                <div class="card-footer input-group" id="problem-flag" *ngIf="selected">
+                    <input type="text" placeholder="Enter the flag" class="form-control rounded-0" id="user_flag" *ngIf="!isSolved" formControlName="flag">
+                    <input type="text" placeholder="You have solved the challenge" class="form-control rounded-0" id="user_flag" *ngIf="isSolved" disabled>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary input-group-append rounded-0" [disabled]="isSolved || !flagForm.valid">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br>
+    </div>
+</div>
+<div class="modal fade" id="solvedModal" tabindex="-1" role="dialog" aria-labelledby="solvedModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"><span [innerText]="users.length"></span> Solves</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li *ngFor="let user of users">{{user}}</li>
+            </ul>
+        </div>
+        </div>
+    </div>
+</div>

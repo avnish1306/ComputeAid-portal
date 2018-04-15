@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <div class="card rounded-0">
+      <div class="card-header"><h2>Registration</h2></div>
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <div class="card-body">
+          <div class="form-group">
+            <input type="text" placeholder="Team Name" class="form-control rounded-0  form-control-lg" formControlName="name">
+            <div *ngIf="!registerForm.get('name').valid && registerForm.get('name').touched" class="invalid-feedback">
+              Team name should be minimun 3 characters long.
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="email" placeholder="Email" class="form-control rounded-0  form-control-lg" formControlName="email">
+            <div *ngIf="!registerForm.get('email').valid && registerForm.get('email').touched" class="invalid-feedback">
+              Please enter a valid email.
+            </div>
+          </div>
+          <div formGroupName="password">
+            <div class="form-group">
+              <input type="password" placeholder="Password" class="form-control rounded-0  form-control-lg" formControlName="password1">
+              <div *ngIf="!registerForm.get('password.password1').valid && registerForm.get('password.password1').touched" class="invalid-feedback">
+                Password should be 6 characters long.
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="password" placeholder="Confirm Password" class="form-control rounded-0  form-control-lg" formControlName="password2">
+              <div *ngIf="!registerForm.get('password.password2').valid && registerForm.get('password.password2').touched" class="invalid-feedback">
+                Password should be 6 characters long.
+              </div>
+              <div *ngIf="!registerForm.get('password').valid && registerForm.get('password.password1').touched && registerForm.get('password.password2').touched" class="invalid-feedback">
+                Passwords do not match.
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" maxlength="10" placeholder="Mobile Number" class="form-control rounded-0  form-control-lg" formControlName="contact">
+            <div *ngIf="!registerForm.get('contact').valid && registerForm.get('contact').touched" class="invalid-feedback">
+              Please enter a valid 10 digit number.
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="College" class="form-control rounded-0  form-control-lg" formControlName="college">
+            <div *ngIf="!registerForm.get('college').valid && registerForm.get('college').touched" class="invalid-feedback">
+              Please enter your college.
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-primary btn-lg rounded-0" [disabled]="!registerForm.valid">Register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

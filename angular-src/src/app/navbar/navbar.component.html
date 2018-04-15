@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">CryptoQuest</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <ng-template [ngIf]="!isLoggedIn()">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/register" routerLinkActive="active"><i class="fas fa-user-plus"></i> Register</a>
+          </li>
+        </ng-template>
+        <ng-template [ngIf]="isLoggedIn()">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/chals" routerLinkActive="active"><i class="fas fa-list-ol"></i> Challenges</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/rules" routerLinkActive="active"><i class="fas fa-info-circle"></i> Rules</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/ranking" routerLinkActive="active"><i class="fas fa-signal"></i> Ranking</a>
+            </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+              {{user}}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right text-center">
+              <a class="dropdown-item" routerLink="/profile" routerLinkActive="active"><i class="fas fa-user"></i> Profile</a>
+              <a class="dropdown-item" href="#" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+          </li>
+        </ng-template>
+      </ul>
+    </div>
+  </nav>

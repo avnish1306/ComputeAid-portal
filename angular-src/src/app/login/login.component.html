@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <div class="card rounded-0">
+      <div class="card-header"><h2>Login</h2></div>
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="card-body">
+          <div class="form-group">
+            <input type="text" class="form-control rounded-0 form-control-lg" placeholder="Team Name" formControlName="name">
+            <div *ngIf="!loginForm.get('name').valid && loginForm.get('name').touched" class="invalid-feedback">
+              Please enter a team name greater than 2 characters.
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control rounded-0 form-control-lg" placeholder="Password" formControlName="password">
+            <div *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched" class="invalid-feedback">
+              Password should be 6 characters long.
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-primary rounded-0 btn-lg" [disabled]="!loginForm.valid">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

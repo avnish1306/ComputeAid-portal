@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Zwodrei';
+    src: url('../assets/fonts/zwodrei.ttf');
+}
+
+@font-face {
+    font-family: 'Lato-Medium';
+    src: url('../assets/fonts/Lato-Medium.ttf');
+}
+
+.container{
+    margin-top: 30px;
+}

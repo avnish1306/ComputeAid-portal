@@ -1,0 +1,14 @@
+input.ng-invalid.ng-touched{
+    border-width: 2px;
+    border-color: #dc3545;
+}
+
+input.ng-valid.ng-touched{
+    border-width: 2px;
+    border-color: #28a745;
+}
+
+.invalid-feedback{
+    font-size: 90%;
+    display: block;
+}

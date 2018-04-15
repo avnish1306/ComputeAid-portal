@@ -1,0 +1,16 @@
+<table class="table text-center">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Team</th>
+      <th scope="col">Points</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let score of scores; let i = index" [ngClass]="{'table-dark': score.team===team}">
+      <th scope="row">{{i+1}}</th>
+      <td>{{score.team}}</td>
+      <td>{{score.score}}</td>
+    </tr>
+  </tbody>
+</table>

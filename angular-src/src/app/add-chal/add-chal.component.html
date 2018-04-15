@@ -1,0 +1,41 @@
+<div class="card">
+  <div class="card-header"><h4>Add Chal</h4></div>
+  <div class="card-body">
+    <form [formGroup]="addChalForm">
+      <div class="form-group">
+        <input type="text" class="form-control rounded-0 form-control-lg" placeholder="Title" formControlName="title">
+        <div *ngIf="!addChalForm.get('title').valid && addChalForm.get('title').touched" class="invalid-feedback">
+          Title is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <textarea class="form-control rounded-0" rows="10" placeholder="Description" formControlName="desc"></textarea>
+        <div *ngIf="!addChalForm.get('desc').valid && addChalForm.get('desc').touched" class="invalid-feedback">
+          Description is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="number" class="form-control rounded-0 form-control-lg" placeholder="Points" formControlName="points">
+        <div *ngIf="!addChalForm.get('points').valid && addChalForm.get('points').touched" class="invalid-feedback">
+          Points is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control rounded-0 form-control-lg" placeholder="Flag" formControlName="flag">
+        <div *ngIf="!addChalForm.get('flag').valid && addChalForm.get('flag').touched" class="invalid-feedback">
+          Flag should be minimun 5 characters long.
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control rounded-0 form-control-lg" placeholder="Author" formControlName="author">
+        <div *ngIf="!addChalForm.get('author').valid && addChalForm.get('author').touched" class="invalid-feedback">
+          Author is required.
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="card-footer text-right">
+    <button class="btn btn-primary" (click)="addChal(true)" [disabled]="!addChalForm.valid">Add Chal & Go Back</button>
+    <button class="btn btn-primary" (click)="addChal(false)" [disabled]="!addChalForm.valid">Add Chal & Add More</button>
+  </div>
+</div>
