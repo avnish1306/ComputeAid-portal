@@ -1,7 +1,7 @@
 {
   "name": "cryptoquest",
   "version": "1.0.0",
-  "description": "Portal for hosting CTF competetion",
+  "description": "Portal for hosting CTF competition",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
