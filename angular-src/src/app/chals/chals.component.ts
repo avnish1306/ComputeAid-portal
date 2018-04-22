@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
-import { faPlusCircle } from '@fortawesome/fontawesome-free-solid'
+import { faPlusCircle, faTrash, faPencilAlt, faEye } from '@fortawesome/fontawesome-free-solid'
 import fontawesome from '@fortawesome/fontawesome';
 
 import { AuthService } from '../services/auth.service';
 import { ChalService } from '../services/chal.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-fontawesome.library.add(faPlusCircle)
+fontawesome.library.add(faPlusCircle, faTrash, faPencilAlt, faEye);
 
 @Component({
   selector: 'app-chals',
@@ -33,6 +33,7 @@ export class ChalsComponent implements OnInit {
   solved;
   isSolved: boolean = false;
   index: number;
+  flags;
 
   flagForm: FormGroup;
   addChalForm: FormGroup;
@@ -42,6 +43,7 @@ export class ChalsComponent implements OnInit {
       data => {
         this.chals = data.chals;
         this.solved = new Array(this.chals.length).fill(false);
+        this.flags = new Array(this.chals.length).fill("");
         for(let i=0;i<this.chals.length;i++){
           this.solved[i] = (this.chals[i].users.indexOf(JSON.parse(localStorage.getItem('user')).name) > -1);
         }
@@ -72,6 +74,10 @@ export class ChalsComponent implements OnInit {
     this.users = this.chals[index].users;
     this.id = this.chals[index]._id;
     this.isSolved = this.solved[index];
+    if(this.isAdmin()){
+      if(this.flags[index]=="")
+        this.viewFlag();
+    }
   }
 
   submitFlag(){
@@ -104,6 +110,33 @@ export class ChalsComponent implements OnInit {
       data => {
         this.notificationsService.success("Success", data.msg, {timeOut: 5000, showProgressBar: true, pauseOnHover: true, clickToClose: true, animate: 'fromRight'});
         this.addChalForm.reset();
+      },
+      error => {
+        this.notificationsService.error("Oops!!", JSON.parse(error._body).error, {timeOut: 5000, showProgressBar: true, pauseOnHover: true, clickToClose: true, animate: 'fromRight'});
+      }
+    );
+  }
+
+  viewFlag(){
+    this.chalService.viewFlag(this.id).subscribe(
+      data => {
+        this.flags[this.index] = data.msg;
+      },
+      error => {
+        this.notificationsService.error("Oops!!", JSON.parse(error._body).error, {timeOut: 5000, showProgressBar: true, pauseOnHover: true, clickToClose: true, animate: 'fromRight'});
+      }
+    );
+  }
+
+  deleteChal(){
+    this.chalService.deleteChal(this.id).subscribe(
+      data => {
+        this.notificationsService.success("Success", data.msg, {timeOut: 5000, showProgressBar: true, pauseOnHover: true, clickToClose: true, animate: 'fromRight'});
+        this.ngOnInit();
+        if(this.index===0)
+          this.router.navigate(['/chals/add']);
+        else
+          this.displayChal(this.index-1);
       },
       error => {
         this.notificationsService.error("Oops!!", JSON.parse(error._body).error, {timeOut: 5000, showProgressBar: true, pauseOnHover: true, clickToClose: true, animate: 'fromRight'});

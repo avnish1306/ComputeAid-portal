@@ -167,4 +167,38 @@ router.post('/:id', Auth.authenticateUser, (req, res, next) => {
     }
 });
 
+router.get('/:id/flag', Auth.authenticateAdmin, (req, res, next) => {
+    Chal.findById(req.params.id, 'flag').exec()
+    .then(result => {
+        res.status(200).json({
+            status: 1,
+            msg: result.flag
+        });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            status: 0,
+            error: "Internal Server Error"
+        });
+    });
+});
+
+router.delete('/:id', Auth.authenticateAdmin, (req, res, next) => {
+    Chal.remove({_id: req.params.id}).exec()
+    .then(result => {
+        res.status(200).json({
+            status: 1,
+            msg: "Chal deleted"
+        });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({
+            status: 0,
+            error: "Internal Server Error"
+        });
+    });
+});
+
 module.exports = router;

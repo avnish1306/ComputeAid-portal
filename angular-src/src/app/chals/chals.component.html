@@ -20,7 +20,7 @@
                 <div id="problem-file"></div>
             </div>
             <form [formGroup]="flagForm" (ngSubmit)="submitFlag()">
-                <div class="card-footer input-group" id="problem-flag" *ngIf="selected">
+                <div class="card-footer input-group" id="problem-flag" *ngIf="selected && !isAdmin()">
                     <input type="text" placeholder="Enter the flag" class="form-control rounded-0" id="user_flag" *ngIf="!isSolved" formControlName="flag">
                     <input type="text" placeholder="You have solved the challenge" class="form-control rounded-0" id="user_flag" *ngIf="isSolved" disabled>
                     <div class="input-group-append">
@@ -28,6 +28,15 @@
                     </div>
                 </div>
             </form>
+            <div class="card-footer" *ngIf="selected && isAdmin()">
+                <code>{{flags[index]}}</code>
+            </div>
+            <div class="card-footer" *ngIf="selected && isAdmin()">
+                <div class="float-right">
+                    <button class="btn btn-warning"><i class="fa fa-pencil-alt"></i> Edit</button>
+                    <button class="btn btn-danger" (click)="deleteChal()"><i class="fa fa-trash"></i> Delete</button>
+                </div>
+            </div>
         </div>
         <br>
     </div>

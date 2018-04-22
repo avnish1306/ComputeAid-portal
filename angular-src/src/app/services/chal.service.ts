@@ -21,7 +21,7 @@ export class ChalService{
         const headers = new Headers({
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         });
-        return this.http.post(environment.apiUrl + 'chals/' + id, {flag: flag}, {headers: headers}).map(res => res.json());
+        return this.http.post(environment.apiUrl + 'chals/'+id, {flag: flag}, {headers: headers}).map(res => res.json());
     }
 
     addChal(chal){
@@ -29,5 +29,19 @@ export class ChalService{
             'Authorization': 'Bearer ' + localStorage.getItem('token')
         });
         return this.http.post(environment.apiUrl+'chals/add', chal, {headers: headers}).map(res => res.json());
+    }
+
+    viewFlag(id){
+        const headers = new Headers({
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        });
+        return this.http.get(environment.apiUrl+'chals/'+id+'/flag', {headers: headers}).map(res => res.json());
+    }
+
+    deleteChal(id){
+        const headers = new Headers({
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
+        });
+        return this.http.delete(environment.apiUrl+'chals/'+id, {headers: headers}).map(res => res.json());
     }
 }
