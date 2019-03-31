@@ -1,41 +1,98 @@
 <div class="card">
-  <div class="card-header"><h4>Add Chal</h4></div>
+  <div class="card-header"><h4>Add Que</h4></div>
   <div class="card-body">
-    <form [formGroup]="addChalForm">
-      <div class="form-group">
-        <input type="text" class="form-control rounded-0 form-control-lg" placeholder="Title" formControlName="title">
-        <div *ngIf="!addChalForm.get('title').valid && addChalForm.get('title').touched" class="invalid-feedback">
-          Title is required.
-        </div>
+    <form [formGroup]="addQueForm">
+        <div class="form-group">
+            <h6>Language</h6>
+            <div class="form-control rounded-0  form-control-lg" class="row">
+            <label class="col-sm-3">
+                <input type="radio" ng-model="lang" value="C"  formControlName="lang">
+                C
+              </label>
+              <label class="col-sm-3">
+                <input type="radio" ng-model="lang" value="CPP" formControlName="lang">
+                C++   
+              </label>
+              <label class="col-sm-3">
+                <input type="radio" ng-model="lang" value="JAVA"  formControlName="lang">
+                JAVA
+              </label>
+              </div>
       </div>
       <div class="form-group">
         <textarea class="form-control rounded-0" rows="10" placeholder="Description" formControlName="desc"></textarea>
-        <div *ngIf="!addChalForm.get('desc').valid && addChalForm.get('desc').touched" class="invalid-feedback">
+        <div *ngIf="!addQueForm.get('desc').valid && addQueForm.get('desc').touched" class="invalid-feedback">
           Description is required.
-        </div>
+      </div>
       </div>
       <div class="form-group">
         <input type="number" class="form-control rounded-0 form-control-lg" placeholder="Points" formControlName="points">
-        <div *ngIf="!addChalForm.get('points').valid && addChalForm.get('points').touched" class="invalid-feedback">
+        <div *ngIf="!addQueForm.get('points').valid && addQueForm.get('points').touched" class="invalid-feedback">
           Points is required.
-        </div>
+      </div>
       </div>
       <div class="form-group">
-        <input type="text" class="form-control rounded-0 form-control-lg" placeholder="Flag" formControlName="flag">
-        <div *ngIf="!addChalForm.get('flag').valid && addChalForm.get('flag').touched" class="invalid-feedback">
-          Flag should be minimun 5 characters long.
-        </div>
+          <input type="text" class="form-control rounded-0 form-control-lg" placeholder="Author" formControlName="author">
+          <div *ngIf="!addQueForm.get('author').valid && addQueForm.get('author').touched" class="invalid-feedback">
+            Author is required.
+          </div>
       </div>
       <div class="form-group">
-        <input type="text" class="form-control rounded-0 form-control-lg" placeholder="Author" formControlName="author">
-        <div *ngIf="!addChalForm.get('author').valid && addChalForm.get('author').touched" class="invalid-feedback">
-          Author is required.
+          <h6>Type</h6>
+          <div class="form-control rounded-0  form-control-lg" class="row">
+            <label class="col-sm-3">
+              <input type="radio" ng-model="type" value=1 [checked]="type===1" (click)="type=1; sol=[false,false,false,false];" formControlName="type">
+              Single correct
+            </label>
+            <label class="col-sm-3">
+              <input type="radio" ng-model="type" value=2 (click)="type=2" formControlName="type">
+              Multiple Correct
+            </label>
+          </div>
+      </div>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-10">
+              <input type="text" class="form-control rounded-0 form-control-lg" (input)="bindOpt($event,0)" placeholder="Option 1" formControlName="opt1">
+          </div>
+          <div class="col-sm-2">
+              <input type="checkbox" name="cb0"  ng-model="sol[0]" [checked]="sol[0]" (click)="bindSol(0)"  class="form-control">
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-10">
+                <input type="text" class="form-control rounded-0 form-control-lg" (input)="bindOpt($event,1)" placeholder="Option 1" formControlName="opt1">
+            </div>
+            <div class="col-sm-2">
+                <input type="checkbox" name="cb1"  ng-model="sol[1]" [checked]="sol[1]" (click)="bindSol(1)" class="form-control">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-10">
+                <input type="text" class="form-control rounded-0 form-control-lg" (input)="bindOpt($event,2)" placeholder="Option 1" formControlName="opt1">
+            </div>
+            <div class="col-sm-2">
+                <input type="checkbox" name="cb2"  ng-model="sol[2]" [checked]="sol[2]" (click)="bindSol(2)" class="form-control" >
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-10">
+                <input type="text" class="form-control rounded-0 form-control-lg" (input)="bindOpt($event,3)" placeholder="Option 1" formControlName="opt1">
+            </div>
+            <div class="col-sm-2">
+                <input type="checkbox" name="cb3"  ng-model="sol[3]" [checked]="sol[3]" (click)="bindSol(3)"class="form-control">
+            </div>
         </div>
       </div>
+      
+      
     </form>
   </div>
   <div class="card-footer text-right">
-    <button class="btn btn-primary" (click)="addChal(true)" [disabled]="!addChalForm.valid">Add Chal & Go Back</button>
-    <button class="btn btn-primary" (click)="addChal(false)" [disabled]="!addChalForm.valid">Add Chal & Add More</button>
+    <button class="btn btn-primary" (click)="addQue(true)" [disabled]="!addQueForm.valid">Add Que & Go Back</button>
+    <button class="btn btn-primary" (click)="addQue(false)" [disabled]="!addQueForm.valid">Add Que & Add More</button>
   </div>
 </div>

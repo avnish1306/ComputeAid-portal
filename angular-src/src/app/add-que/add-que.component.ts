@@ -14,24 +14,52 @@ export class AddQueComponent implements OnInit {
     private notificationsService: NotificationsService) { }
 
   addQueForm: FormGroup;
+  sol=[false,false,false,false];
+  type=1;
+  opt=[];
 
   ngOnInit() {
     this.addQueForm = new FormGroup({
-      'title': new FormControl(null, [Validators.required]),
+      'lang': new FormControl(null, [Validators.required]),
       'desc': new FormControl(null, [Validators.required]),
-      'flag': new FormControl(null, [Validators.required, Validators.minLength(5)]),
+      'type': new FormControl(null, [Validators.required]),
       'points': new FormControl(null, [Validators.required]),
-      'author': new FormControl(null, [Validators.required])
+      'author': new FormControl(null, [Validators.required]),
+      'opt1':new FormControl(null),
+      'opt2':new FormControl(null),
+      'opt3':new FormControl(null, []),
+      'opt4':new FormControl(null, [])
     });
   }
-
+  bindSol(k: number){
+    this.sol[k]=!this.sol[k];
+    if(this.type==1)
+      for(let i=0;i<4;i++){
+        if(i==k)
+          continue;
+      this.sol[i]=false;}
+    console.log(this.sol);
+  }
+  bindOpt(e: any,i:number){
+      this.opt[i]=e.target.value;
+  }
   addQue(navigate: boolean){
     const que = {
-      title: this.addQueForm.value.title,
+      lang: this.addQueForm.value.lang,
       desc: this.addQueForm.value.desc,
-      flag: this.addQueForm.value.flag,
+      type: this.addQueForm.value.type,
       points: this.addQueForm.value.points,
-      author: this.addQueForm.value.author
+      author: this.addQueForm.value.author,
+      opt:[],
+      sol:[]
+    }
+    que.opt=this.opt;
+    
+    console.log(que.opt);
+    for(var i=0;i<4;i++){
+      if(this.sol[i]==true){
+        que.sol.push(que.opt[i]);
+      }
     }
     this.queService.addQue(que).subscribe(
       data => {
