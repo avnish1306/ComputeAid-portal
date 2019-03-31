@@ -5,12 +5,10 @@ import { faPlusCircle, faTrash, faPencilAlt, faEye } from '@fortawesome/fontawes
 import fontawesome from '@fortawesome/fontawesome';
 
 import { AuthService } from '../services/auth.service';
-import { ChalService } from '../services/chal.service';
 import { QuesService } from '../services/ques.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 fontawesome.library.add(faPlusCircle, faTrash, faPencilAlt, faEye);
-
 
 @Component({
   selector: 'app-question',
@@ -21,7 +19,6 @@ export class QuestionComponent implements OnInit {
 
   constructor(private router: Router,
   private authService: AuthService,
-  private chalService: ChalService,
   private quesService: QuesService,
   private notificationsService: NotificationsService) { }
 
@@ -30,7 +27,7 @@ export class QuestionComponent implements OnInit {
   selected: boolean = false;
   type: number;
   points: number;
-  desc: string = "<h2>Welcome</h2><h3>to</h3><h1>CryptoQuest</h1><br><br><p>Click on any question to begin</p>";
+  desc: string = "<h2>Welcome</h2><h3>to</h3><h1>Bughunt</h1><br><br><p>Click on any question to begin</p>";
   author: string;
   users = [];
   id: string;

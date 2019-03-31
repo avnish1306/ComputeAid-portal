@@ -1,0 +1,63 @@
+<div class="row">
+  <div class="col-md-4">
+      <ul class="list-group">
+          <li class="list-group-item text-center rounded-0" routerLink="/flaws/add" *ngIf="isAdmin()"><i class="fa fa-plus-circle"></i></li>
+          <li class="list-group-item d-flex justify-content-between align-items-center rounded-0" *ngFor="let flaw of flaws; let i = index" (click)="displayFlaw(i)" [ngClass]="{'solved': solved[i], 'active': i===index}">
+              {{flaw.qName}}
+              <span class="badge badge-secondary badge-pill">{{flaw.points}}</span>
+          </li>
+      </ul>
+  </div>
+  <div class="col-md-8">
+      <div class="card rounded-0">
+          <div class="card-header" *ngIf="selected" data-toggle="modal" data-target="#solvedModal">
+              <div style="float:left"><span [innerText]="qName" id="problem-name"></span> -<small [innerText]="author"></small></div>
+              <div id="problem-points" style="float:right" [innerText]="points"></div>
+              <div style="clear:both"></div>
+          </div>
+          <div class="card-body" *ngIf="!selected">
+              <div id="problem-desc" [innerHtml]="welcome"></div>
+              <div id="problem-file"></div>
+          </div>
+          <div class="card-body" *ngIf="selected">
+            <h5>Problem Statement:</h5><p [innerText]="desc"></p>
+            <h5>Input Format:</h5><p [innerText]="ipFormat"></p>
+            <h5>Output Format:</h5><p [innerText]="opFormat"></p>
+            <h5>Constraints:</h5><p [innerText]="constraint"></p>
+            <h5>Testcase:</h5><p [innerText]="testcase"></p>
+            <h5>Explanation:</h5><p [innerText]="explain"></p>
+          </div>
+          <div class="card-footer" *ngIf="selected">
+            <p [innerText]="others"></p>
+            <button class="btn btn-info float-right" routerLink="/editor/{{qCode}}">Submit Solution</button>
+          </div>
+          <div class="card-footer" *ngIf="selected && isAdmin()">
+              <code>{{flags[index]}}</code>
+          </div>
+          <div class="card-footer" *ngIf="selected && isAdmin()">
+              <div class="float-right">
+                  <button class="btn btn-warning"><i class="fa fa-pencil-alt"></i> Edit</button>
+                  <button class="btn btn-danger" (click)="deleteFlaw()"><i class="fa fa-trash"></i> Delete</button>
+              </div>
+          </div>
+      </div>
+      <br>
+  </div>
+</div>
+<!-- <div class="modal fade" id="solvedModal" tabindex="-1" role="dialog" aria-labelledby="solvedModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+      <div class="modal-header">
+          <p class="modal-title" id="exampleModalLabel"><span [innerText]="users.length"></span> Solves</p>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <ul>
+              <li *ngFor="let user of users">{{user}}</li>
+          </ul>
+      </div>
+      </div>
+  </div>
+</div> -->
