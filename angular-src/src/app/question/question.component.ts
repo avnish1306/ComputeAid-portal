@@ -41,12 +41,14 @@ export class QuestionComponent implements OnInit {
   sol;
   submission;
   submitted=[false,false,false,false];
+  selectedOpt=[false,false,false,false];
 
   optForm: FormGroup;
   addQueForm: FormGroup;
 
   
   ngOnInit() {
+    
     this.quesService.getAllQues().subscribe(
       data => {
         this.ques = data.ques;
@@ -54,14 +56,30 @@ export class QuestionComponent implements OnInit {
         this.saved = new Array(this.ques.length);
         this.sol = new Array(this.ques.length).fill([]);
         for(let i=0;i<this.ques.length;i++){
-          var sol=this.submission.find(que=>{ if(que.queId==this.ques._id) return que.sol});
-          if(sol)
+          var sol;//=this.submission.find(que=>{ console.log(que.queId,"   ",this.ques[i]._id); if(que.queId==this.ques[i]._id) return que.sol});
+          for(var j=0;j<this.submission.length;j++){
+            console.log(this.submission[j].queId,"  ",this.ques[i]._id);
+            if(this.submission[j].queId==this.ques[i]._id) {
+                sol=this.submission[j].ans;
+                this.saved[i]=true;
+                this.sol[i]=this.submission[j].ans;
+                break;
+            }
+            
+          }
+          if(!this.saved[i]){
+            this.saved[i]=false;
+            this.sol[i]=[];
+          }
+          console.log(sol);
+          /*if(sol.length>0&&this.submission.length&&this.submission.length>0)
            {this.saved[i] = true
             this.sol[i] = sol
               } //(this.chals[i].users.indexOf(JSON.parse(localStorage.getItem('user')).name) > -1);
           else{this.saved[i] = false
             this.sol[i] = []
-              } 
+          }*/
+              console.log(this.saved); 
 
         }
       },
@@ -81,7 +99,19 @@ export class QuestionComponent implements OnInit {
 
     });
   }
-
+  bindSol(i){
+    this.selectedOpt[i]=!this.selectedOpt[i];
+  }
+  bindSolR(i){
+    this.selectedOpt[i]=!this.selectedOpt[i];
+    for(var j=0;j<4;j++){
+      if(i!=j&&this.selectedOpt[j]==true){
+        this.selectedOpt[j]=false;
+      }
+      
+    }
+    
+  }
   displayQue(index){
     
     this.i=0;
@@ -112,6 +142,7 @@ export class QuestionComponent implements OnInit {
           }
         }
     }}
+    this.selectedOpt=this.submitted;
     
 
     if(this.isAdmin()){
@@ -125,6 +156,13 @@ export class QuestionComponent implements OnInit {
     var sol=[];
     if(que.type==1)
       sol.push(this.optForm.value.opt);
+    else if(que.type==2){
+      for(var i=0;i<4;i++){
+        if(this.selectedOpt[i]){
+          sol.push(que.opt[i]);
+        }
+      }
+    }
     this.quesService.saveSol(this.id, sol).subscribe(
       data => {
         if(data.saved){

@@ -33,10 +33,63 @@ const userSchema = mongoose.Schema({
         type:String,
         default:"Z"
     },
-    score:{
-        type:Number,
-        default:0
+    contests:{
+        cryptoquest:{
+            isEligible:{
+                type:Boolean,
+                default:false
+            },
+            status:{
+                type:Boolean,
+                default:false
+            },
+            score:{
+                type:Number,
+                default:0
+            },
+            startTime:{
+                type:Date,
+                default:null
+            }
+        },
+        bughunt:{
+            isEligible:{
+                type:Boolean,
+                default:false
+            },
+            status:{
+                type:Boolean,
+                default:false
+            },
+            score:{
+                type:Number,
+                default:0
+            },
+            startTime:{
+                type:Date,
+                default:null
+            }
+        },
+        flawless:{
+            isEligible:{
+                type:Boolean,
+                default:false
+            },
+            status:{
+                type:Boolean,
+                default:false
+            },
+            score:{
+                type:Number,
+                default:0
+            },
+            startTime:{
+                type:Date,
+                default:null
+            }
+        }
     },
+
     submission:[{
         queId: {
             type: mongoose.Schema.Types.ObjectId,

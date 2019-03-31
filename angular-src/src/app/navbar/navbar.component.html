@@ -9,7 +9,11 @@
         
       </ul>
       <ul class="navbar-nav ml-auto">
+
         <ng-template [ngIf]="!isLoggedIn()">
+            <li class="nav-item">
+                <a class="nav-link" ><i class="fas fa-sign-in-alt"></i> Compute@id</a>
+              </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/login" routerLinkActive="active"><i class="fas fa-sign-in-alt"></i> Login</a>
           </li>
@@ -19,8 +23,14 @@
         </ng-template>
         <ng-template [ngIf]="isLoggedIn()">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/chals" routerLinkActive="active"><i class="fas fa-list-ol"></i> Challenges</a>
+            <a class="nav-link" routerLink="/chals" routerLinkActive="active"><i class="fas fa-list-ol"></i> CryptoQuest</a>
           </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/ques" routerLinkActive="active"><i class="fas fa-list-ol"></i> Bughunt</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/flaw" routerLinkActive="active"><i class="fas fa-list-ol"></i> Flawless</a>
+            </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/rules" routerLinkActive="active"><i class="fas fa-info-circle"></i> Rules</a>
           </li>

@@ -25,6 +25,7 @@ mongoose.connection.on('error', () => {
 const user = require("./routes/user");
 const chals = require("./routes/chals");
 const que = require("./routes/que");
+const flaw=require("./routes/flaw");
 
 // Middleware Setup
 app.use(morgan('dev'));
@@ -38,6 +39,7 @@ app.use(express.static(__dirname+'/public'));
 app.use("/user", user);
 app.use("/chals", chals);
 app.use("/ques", que);
+app.use("/flaws",flaw);
 
 // Setting Up Error Messages and Status
 app.use((req, res, next) => {

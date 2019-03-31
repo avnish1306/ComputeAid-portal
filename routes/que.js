@@ -146,6 +146,95 @@ router.get('/viewSol/:id',Auth.authenticateAdmin,(req,res,next)=>{
         });
     });
 })
+router.get("/submitSol",Auth.authenticateAll,(req,res,next)=>{
+    User.findOne({'name':req.user.name},(err,user)=>{
+        if(err){
+            res.status(500).json({
+                status:0,
+                error:err,
+                msg:"Not Submitted"
+            })
+        }
+        if(!user.contests.bughunt.status){
+            Que.find({'lang':req.user.lang},(err,ques)=>{
+                if(err){
+                    res.status(500).json({
+                        status:0,
+                        error:err,
+                        msg:"Not Submitted"
+                    })
+                }
+                const userSub=user.submission;
+                var score=0;
+                //console.log(userSub,"     xxxxxxxxxxxxx   ",ques);
+                for(var i=0;i<userSub.length;i++){
+                    if(userSub[i].ans.length>0){
+                        var que=findQuestionById(userSub[i].queId,ques);
+                        console.log("que ",que)
+                        if(que==null)
+                            continue;
+                        if(que.type==1){
+                            if(userSub[i].ans[0]==que.sol[0]){
+                                score=score+que.points;
+                            }else{
+                                score=score-(que.points*0.25);
+                            }
+                        }else{
+                            var correctAns=0,wrongAns=0;
+                            for(var j=0;j<userSub[i].ans.length;j++){
+                                if(findAns(userSub[i].ans[j],que.sol)){
+                                    correctAns+=1;
+                                }else{
+                                    wrongAns+=1;
+                                }
+                            }
+                            if(wrongAns==0){
+                                score=score+((que.points)/(que.sol.length))*correctAns;
+                            }
+                        }
+                    }
+                }
+                user.contests.bughunt.score=score;
+                user.contests.bughunt.status=true;
+                user.contests.bughunt.timeLeft=null;
+                user.save().then(newUser=>{
+                    res.status(201).json({
+                        status:1,
+                        msg:"Submitted"
+                    })
+                }).catch(err=>{
+                    res.status(201).json({
+                        status:0,
+                        msg:"Not Submitted",
+                        error:err
+                    })
+                });
+                
+            })
+        }else{
+            res.status(201).json({
+                status:0,
+                msg:"Not Submitted",
+                error:err
+            })
+        }
+    })
+});
+function findAns(ans,sol){
+    for(var i=0;i<sol.length;i++){
+        if(ans==sol[i])
+            return true;
+    }
+    return false;
+}
+function findQuestionById(id,ques){
+    for(var i=0;i<ques.length;i++){
+        if(ques[i].id==id){
+            return ques[i];
+        }
+    }
+    return null;
+}
 
 
 

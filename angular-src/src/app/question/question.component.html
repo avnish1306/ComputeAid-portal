@@ -1,8 +1,9 @@
 <div class="row">
   <div class="col-md-1">
       <ul class="list-group">
-          <li class="list-group-item text-center rounded-0" routerLink="/ques/add" *ngIf="isAdmin()"><i class="fa fa-plus-circle"></i></li>
-          <li class="list-group-item d-flex justify-content-between align-items-center rounded-0" *ngFor="let que of ques; let i = index" (click)="displayQue(i)" [ngClass]="{'saved': false, 'active': i===index}">
+          <li class="list-group-item text-center rounded-0" routerLink="/ques/add" *ngIf="isAdmin()"><i class="fa fa-plus-circle"></i></li>{{saved|json}}
+
+          <li class="list-group-item d-flex justify-content-between align-items-center rounded-0" *ngFor="let que of ques; let i = index" (click)="displayQue(i)" [ngClass]="{'saved':saved[i] , 'active': i==index}">
               {{i+1}}
               <!--span class="badge badge-secondary badge-pill">{{chal.points}}</span-->
           </li>
@@ -20,13 +21,14 @@
               <div id="problem-file"></div>
           </div>
           <form [formGroup]="optForm" (ngSubmit)="saveSol(ques[index])">
-              <div class="card-footer form-group" id="problem-flag" *ngIf="selected ">
-                    <label class="col-sm-12" *ngFor="let optC of opt; let i=index">
-                  <input type="radio" name="opt" value={{optC}} ng-model="opt" [checked]="submitted[i]"  formControlName="opt"  style="margin-right: 20px">{{optC}} {{boo}}
+              <div class="card-footer form-group" id="problem-flag" *ngIf="selected ">{{ selectedOpt|json}}
+                <label  class="col-sm-12" *ngFor="let optC of opt; let i=index">
+                  <input *ngIf="type===1" type="radio" name="opt" value={{optC}} ng-model="opt" [checked]="submitted[i]"  (click)="bindSolR(i)" formControlName="opt"  style="margin-right: 20px">
+                  <input *ngIf="type===2" type="checkbox" name="opt" value={{optC}} ng-model="opt" [checked]="submitted[i]" (click)="bindSol(i)" formControlName="opt"  style="margin-right: 20px">{{optC}}
                   <br>
                 </label>
                   <div class="input-group-append">
-                      <button type="submit" class="btn btn-primary input-group-append rounded-0" >Save</button>
+                      <button type="submit" [disabled]="!(selectedOpt[0]||selectedOpt[1]||selectedOpt[2]||selectedOpt[3])" class="btn btn-primary input-group-append rounded-0" >Save</button>
                   </div>
               </div>
           </form>
@@ -36,7 +38,7 @@
           <div class="card-footer" *ngIf="selected && isAdmin()">
               <div class="float-right">
                   <button class="btn btn-warning"><i class="fa fa-pencil-alt"></i> Edit</button>
-                  <button class="btn btn-danger" (click)="deleteChal()"><i class="fa fa-trash"></i> Delete</button>
+                  <button class="btn btn-danger" (click)="deleteQue()"><i class="fa fa-trash"></i> Delete</button>
               </div>
           </div>
       </div>

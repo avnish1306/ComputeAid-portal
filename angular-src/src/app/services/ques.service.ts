@@ -52,4 +52,11 @@ export class QuesService {
       return this.http.delete(environment.apiUrl+'ques/'+id, {headers: headers}).map(res => res.json());
   }
 
+  submitSol(){
+    const headers = new Headers({
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+    });
+    return this.http.get(environment.apiUrl+'ques/submitSol', {headers: headers}).map(res => res.json());
+  }
+
 }
