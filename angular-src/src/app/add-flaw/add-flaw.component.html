@@ -1,0 +1,102 @@
+<div class="card">
+  <div class="card-header"><h4>Add Flaw</h4></div>
+  <div class="card-body">
+    <form [formGroup]="addFlawForm">
+      <div class="row"><div class="col-4">
+      <div class="form-group">
+        <input type="text" class="form-control rounded-0 form-control-lg" placeholder="Code" formControlName="qCode">
+        <div *ngIf="!addFlawForm.get('qCode').valid && addFlawForm.get('qCode').touched" class="invalid-feedback">
+          Code should be minimun 5 characters long.
+        </div>
+      </div></div><div class="col-4">
+      <div class="form-group">
+        <input type="text" class="form-control rounded-0 form-control-lg" placeholder="Name" formControlName="qName">
+        <div *ngIf="!addFlawForm.get('qName').valid && addFlawForm.get('qName').touched" class="invalid-feedback">
+          Name is required.
+        </div>
+      </div></div><div class="col-4">
+      <div class="form-group">
+        <input type="number" class="form-control rounded-0 form-control-lg" placeholder="Points" formControlName="points">
+        <div *ngIf="!addFlawForm.get('points').valid && addFlawForm.get('points').touched" class="invalid-feedback">
+          Points is required.
+        </div>
+      </div></div></div>
+      <div class="form-group">
+        <textarea class="form-control rounded-0" rows="10" placeholder="Description" formControlName="desc"></textarea>
+        <div *ngIf="!addFlawForm.get('desc').valid && addFlawForm.get('desc').touched" class="invalid-feedback">
+          Description is required.
+        </div>
+      </div>
+      <div class="row"><div class="col-6">
+      <div class="form-group">
+        <textarea class="form-control rounded-0" rows="6" placeholder="Input Format" formControlName="ipFormat"></textarea>
+        <div *ngIf="!addFlawForm.get('ipFormat').valid && addFlawForm.get('ipFormat').touched" class="invalid-feedback">
+          Input Format is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <textarea class="form-control rounded-0" rows="6" placeholder="Output Format" formControlName="opFormat"></textarea>
+        <div *ngIf="!addFlawForm.get('opFormat').valid && addFlawForm.get('opFormat').touched" class="invalid-feedback">
+          Output Format is required.
+        </div>
+      </div></div><div class="col-6">
+        <div class="form-group">
+          <textarea class="form-control rounded-0" rows="2" placeholder="Constraints" formControlName="constraint"></textarea>
+          <div *ngIf="!addFlawForm.get('constraint').valid && addFlawForm.get('constraint').touched" class="invalid-feedback">
+            Constraints is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <textarea class="form-control rounded-0" rows="5" placeholder="Testcase" formControlName="testcase"></textarea>
+          <div *ngIf="!addFlawForm.get('testcase').valid && addFlawForm.get('testcase').touched" class="invalid-feedback">
+            Testcase is required.
+          </div>
+        </div>
+        <div class="form-group">
+          <textarea class="form-control rounded-0" rows="5" placeholder="Explanation" formControlName="explain"></textarea>
+          <div *ngIf="!addFlawForm.get('explain').valid && addFlawForm.get('explain').touched" class="invalid-feedback">
+            Explanation is required.
+          </div>
+        </div>
+      </div></div>
+      <div class="row"><div class="col-6">
+          <div class="form-group">
+            <input type="file" class="form-control rounded-0 form-control-lg" placeholder="Input File" formControlName="ipFile">
+            <div *ngIf="!addFlawForm.get('ipFile').valid && addFlawForm.get('ipFile').touched" class="invalid-feedback">
+              Input File is required.
+            </div>
+          </div>
+      </div><div class="col-6">
+          <div class="form-group">
+            <input type="file" class="form-control rounded-0 form-control-lg" placeholder="Output File" formControlName="opFile">
+            <div *ngIf="!addFlawForm.get('opFile').valid && addFlawForm.get('opFile').touched" class="invalid-feedback">
+              Output File is required.
+            </div>
+          </div>
+      </div></div>
+      <div class="row"><div class="col-4">
+      <div class="form-group">
+        <input type="number" class="form-control rounded-0 form-control-lg" placeholder="Time Limit (ms)" formControlName="timeLimit">
+        <div *ngIf="!addFlawForm.get('timeLimit').valid && addFlawForm.get('timeLimit').touched" class="invalid-feedback">
+          Time Limit is required.
+        </div>
+      </div></div><div class="col-4">
+      <div class="form-group">
+        <input type="number" class="form-control rounded-0 form-control-lg" placeholder="Source Limit (bytes)" formControlName="sourceLimit">
+        <div *ngIf="!addFlawForm.get('sourceLimit').valid && addFlawForm.get('sourceLimit').touched" class="invalid-feedback">
+          Source Limit is required.
+        </div>
+      </div></div><div class="col-4">
+      <div class="form-group">
+        <input type="text" class="form-control rounded-0 form-control-lg" placeholder="Author" formControlName="author">
+        <div *ngIf="!addFlawForm.get('author').valid && addFlawForm.get('author').touched" class="invalid-feedback">
+          Author is required.
+        </div>
+      </div></div></div>
+    </form>
+  </div>
+  <div class="card-footer text-right">
+    <button class="btn btn-primary" (click)="addFlaw(true)" [disabled]="!addFlawForm.valid">Add Flaw & Go Back</button>
+    <button class="btn btn-primary" (click)="addFlaw(false)" [disabled]="!addFlawForm.valid">Add Flaw & Add More</button>
+  </div>
+</div>

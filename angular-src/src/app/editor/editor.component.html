@@ -1,0 +1,20 @@
+<h2>Submit a solution for {{qCode}}</h2>
+
+<form [formGroup]="codeForm" (ngSubmit)="submit()">
+<div class="form-group">
+  <textarea class="form-control rounded-0" style="font-family:'Courier New', Courier, monospace;" ace-editor rows="20" placeholder="Solution" formControlName="code"></textarea>
+  <div *ngIf="!codeForm.get('code').valid && codeForm.get('code').touched" class="invalid-feedback">
+    Description is required.
+  </div>
+</div>
+<div class="form-group">
+  <select  class="form-control rounded-0 form-control-lg" placeholder="Code" formControlName="qCode">
+    <option value="" [selected]="true">Select Language</option>
+    <option *ngFor="let lan of languages" value="{{ lan }}">{{ lan }}</option>
+    </select>
+    <div *ngIf="!codeForm.get('qCode').valid && codeForm.get('qCode').touched" class="invalid-feedback">
+      Select Language !!!
+    </div>
+</div>
+<button type="submit" class="btn btn-success" [disabled]="!codeForm.valid">Submit</button>
+</form>
