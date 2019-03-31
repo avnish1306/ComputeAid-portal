@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService } from 'angular2-notifications/dist/';
 
 import { AuthService } from '../services/auth.service';
 
@@ -29,7 +29,8 @@ export class RegisterComponent implements OnInit {
         'password2': new FormControl(null, [Validators.required, Validators.minLength(6)])
       }, this.matchPasswords),
       'contact': new FormControl(null, [Validators.required, Validators.pattern(/^(\+?91|0)?[6789]\d{9}$/)]),
-      'college': new FormControl(null, Validators.required)
+      'college': new FormControl(null, Validators.required),
+      'lang': new FormControl(null,Validators.required)
     });
   }
 
@@ -47,6 +48,7 @@ export class RegisterComponent implements OnInit {
       password1: this.registerForm.value.password.password1,
       password2: this.registerForm.value.password.password2,
       college: this.registerForm.value.college,
+      lang: this.registerForm.value.lang
     }
     this.authService.registerUser(user).subscribe(
       data => {

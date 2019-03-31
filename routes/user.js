@@ -11,10 +11,11 @@ router.post('/login', (req, res, next) => {
     req.checkBody('password', 'Password is required').notEmpty();
 
     const errors = req.validationErrors();
-
+    console.log("req body "+req.body);
     if(!errors){
         User.findOne({name: req.body.name}).exec()
         .then(user => {
+            console.log("User "+user);
             if(user){
                 bcrypt.compare(req.body.password, user.password, function(err, result) {
                     if(err){
@@ -23,12 +24,14 @@ router.post('/login', (req, res, next) => {
                             error: "Internal server error"
                         });
                     }
+                    console.log(process.env.SECRET);
                     if(result){
                         jwt.sign({
                             email: user.email,
                             id: user._id,
                             name: user.name,
-                            access: user.access
+                            access: user.access,
+                            lang:user.lang
                         }, process.env.SECRET, {
                             expiresIn: "6h",
                         }, function(err, token){
@@ -86,6 +89,7 @@ router.post('/register', (req, res, next) => {
     req.checkBody('password1', 'Password is required').notEmpty();
     req.checkBody('password2', 'Passwords do not match').equals(req.body.password1);
     req.checkBody('college', 'University/College is required').notEmpty();
+    req.checkBody('lang', 'language is required').notEmpty();
 
     const errors = req.validationErrors();
 
@@ -132,7 +136,8 @@ router.post('/register', (req, res, next) => {
                                             contact: req.body.contact,
                                             password: hash,
                                             college: req.body.college,
-                                            access: 3
+                                            access: 3,
+                                            lang:req.body.lang
                                         });
                                         user.save()
                                         .then(result => {

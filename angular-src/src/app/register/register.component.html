@@ -45,6 +45,27 @@
               Please enter your college.
             </div>
           </div>
+          <div class="form-group">
+              <h6>BugHunt Language</h6>
+              <div class="form-control rounded-0  form-control-lg" class="row">
+              <label class="col-sm-3">
+                  <input type="radio" ng-model="lang" value="C"  formControlName="lang">
+                  C
+                </label>
+                <label class="col-sm-3">
+                  <input type="radio" ng-model="lang" value="CPP" formControlName="lang">
+                  C++   
+                </label>
+                <label class="col-sm-3">
+                  <input type="radio" ng-model="lang" value="JAVA"  formControlName="lang">
+                  JAVA
+                </label>
+                </div>
+            <!--input type="text" placeholder="BugHunt Language" class="form-control rounded-0  form-control-lg" formControlName="college">
+            <div *ngIf="!registerForm.get('college').valid && registerForm.get('college').touched" class="invalid-feedback">
+              Please enter your college.
+            </div-->
+          </div>
         </div>
         <div class="card-footer">
           <button type="submit" class="btn btn-primary btn-lg rounded-0" [disabled]="!registerForm.valid">Register</button>

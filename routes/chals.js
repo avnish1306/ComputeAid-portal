@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 const Chal = require('../models/chal');
+const Que=require('../models/que');
 const Answer = require('../models/answer');
 const Auth = require('../middlewares/auth');
 
 router.post('/add', Auth.authenticateAdmin, (req, res, next) => {
+    console.log(" add in ");
     req.checkBody('title', 'Title is required').notEmpty();
     req.checkBody('desc', 'Description is required').notEmpty();
     req.checkBody('author', 'Author is required').notEmpty();

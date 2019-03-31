@@ -1,0 +1,40 @@
+#problem-name{
+	font-size: 30px;
+	font-family: 'Zwodrei';
+}
+
+#problem-points{
+	font-size: 25px;
+	font-family: 'Zwodrei';
+}
+
+#problem-desc{
+	padding: 20px;
+	font-family: 'Lato-Medium';
+	font-size: 18px;
+}
+
+#problem-file{
+	padding: 10px 20px;
+	font-family: 'Lato-Medium';
+}
+
+li.list-group-item.saved{
+		background-color: rgba(40, 167, 69, 0.5);
+}
+
+li.list-group-item.active{
+	background-color: rgba(0, 123, 255, 0.5);
+	border: none;
+}
+
+
+input.ng-invalid.ng-touched{
+    border-color: #dc3545;
+    border-width: 2px;
+}
+
+input.ng-valid.ng-touched{
+    border-color: #28a745;
+    border-width: 2px;
+}

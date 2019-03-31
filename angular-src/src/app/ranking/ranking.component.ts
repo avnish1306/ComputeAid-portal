@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChalService } from '../services/chal.service';
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationsService } from 'angular2-notifications/dist/';
 
 @Component({
   selector: 'app-ranking',

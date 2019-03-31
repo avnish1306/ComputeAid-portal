@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { ParticlesModule } from 'angular-particle';
-import { SimpleNotificationsModule } from 'angular2-notifications';
+import { SimpleNotificationsModule } from 'angular2-notifications/dist/';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -20,18 +20,23 @@ import { AddChalComponent } from './add-chal/add-chal.component';
 import { AuthService } from './services/auth.service';
 import { ChalService } from './services/chal.service';
 import { DataService } from './services/data.service';
+import { QuesService } from './services/ques.service';
 
 import { AuthGuard } from './guards/auth.guard';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
+import { QuestionComponent } from './question/question.component';
+import { AddQueComponent } from './add-que/add-que.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'chals', component: ChalsComponent, canActivate: [AuthGuard] },
+  { path: 'ques', component: QuestionComponent, canActivate: [AuthGuard] },
   { path: 'rules', component: RulesComponent, canActivate: [AuthGuard] },
   { path: 'ranking', component: RankingComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'chals/add', component: AddChalComponent, canActivate: [AuthGuard, AdminAuthGuard] }
+  { path: 'chals/add', component: AddChalComponent, canActivate: [AuthGuard, AdminAuthGuard] },
+  { path: 'ques/add', component: AddQueComponent, canActivate: [AuthGuard, AdminAuthGuard] }
   //{ path: '', component: AppComponent }
 ];
 
@@ -45,7 +50,9 @@ const appRoutes: Routes = [
     RulesComponent,
     RankingComponent,
     ProfileComponent,
-    AddChalComponent
+    AddChalComponent,
+    QuestionComponent,
+    AddQueComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +67,7 @@ const appRoutes: Routes = [
     AuthService,
     ChalService,
     DataService,
+    QuesService,
     AuthGuard,
     AdminAuthGuard
   ],

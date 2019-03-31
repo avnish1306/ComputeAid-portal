@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-md-1">
+      <ul class="list-group">
+          <li class="list-group-item text-center rounded-0" routerLink="/ques/add" *ngIf="isAdmin()"><i class="fa fa-plus-circle"></i></li>
+          <li class="list-group-item d-flex justify-content-between align-items-center rounded-0" *ngFor="let que of ques; let i = index" (click)="displayQue(i)" [ngClass]="{'saved': false, 'active': i===index}">
+              {{i+1}}
+              <!--span class="badge badge-secondary badge-pill">{{chal.points}}</span-->
+          </li>
+      </ul>
+  </div>
+  <div class="col-md-11">
+      <div class="card rounded-0">
+          <div class="card-header" *ngIf="selected" data-toggle="modal" data-target="#solvedModal">
+              <div style="float:left"><span [innerText]="index+1" id="id"></span> -<small [innerText]="author"></small></div>
+              <div id="problem-points" style="float:right" [innerText]="points"></div>
+              <div style="clear:both"></div>
+          </div>
+          <div class="card-body">
+              <div id="problem-desc" [innerHtml]="desc"></div>
+              <div id="problem-file"></div>
+          </div>
+          <form [formGroup]="optForm" (ngSubmit)="saveSol(ques[index])">
+              <div class="card-footer form-group" id="problem-flag" *ngIf="selected ">
+                    <label class="col-sm-12" *ngFor="let optC of opt; let i=index">
+                  <input type="radio" name="opt" value={{optC}} ng-model="opt" [checked]="submitted[i]"  formControlName="opt"  style="margin-right: 20px">{{optC}} {{boo}}
+                  <br>
+                </label>
+                  <div class="input-group-append">
+                      <button type="submit" class="btn btn-primary input-group-append rounded-0" >Save</button>
+                  </div>
+              </div>
+          </form>
+          <div class="card-footer" *ngIf="selected && isAdmin()">
+              <code></code>
+          </div>
+          <div class="card-footer" *ngIf="selected && isAdmin()">
+              <div class="float-right">
+                  <button class="btn btn-warning"><i class="fa fa-pencil-alt"></i> Edit</button>
+                  <button class="btn btn-danger" (click)="deleteChal()"><i class="fa fa-trash"></i> Delete</button>
+              </div>
+          </div>
+      </div>
+      <br>
+  </div>
+</div>
+<!--div class="modal fade" id="solvedModal" tabindex="-1" role="dialog" aria-labelledby="solvedModal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><span [innerText]="users.length"></span> Solves</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <ul>
+              <li *ngFor="let user of users">{{user}}</li>
+          </ul>
+      </div>
+      </div>
+  </div>
+</div-->

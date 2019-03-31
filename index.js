@@ -8,6 +8,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 dotenv.config();
 const app = express();
+console.log(process.env.SECRET);
 const port = process.env.PORT || 3000;
 
 // Connecting to the DB
@@ -23,6 +24,7 @@ mongoose.connection.on('error', () => {
 
 const user = require("./routes/user");
 const chals = require("./routes/chals");
+const que = require("./routes/que");
 
 // Middleware Setup
 app.use(morgan('dev'));
@@ -35,6 +37,7 @@ app.use(express.static(__dirname+'/public'));
 // Importing Routes
 app.use("/user", user);
 app.use("/chals", chals);
+app.use("/ques", que);
 
 // Setting Up Error Messages and Status
 app.use((req, res, next) => {

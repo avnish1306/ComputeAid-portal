@@ -27,7 +27,7 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.8",
     "angular-particle": "^1.0.4",
     "angular2-jwt": "^0.2.3",
-    "angular2-notifications": "^0.9.8",
+    "angular2-notifications": "^0.9.9",
     "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",
     "jquery": "^3.3.1",
