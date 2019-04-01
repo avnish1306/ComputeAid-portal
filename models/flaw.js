@@ -38,12 +38,24 @@ const flawSchema = mongoose.Schema({
         required: true
     },
     ipFile:{
-        type:String,
-        default:""
+        name:{
+            type:String,
+            default:""
+        },
+        value:{
+            type:String,
+            default:""
+        }
     },
     opFile:{
-        type:String,
-        default:""
+        name:{
+            type:String,
+            default:""
+        },
+        value:{
+            type:String,
+            default:""
+        }
     },
     timeLimit:{
         type:Number,

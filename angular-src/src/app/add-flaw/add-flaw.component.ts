@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ElementRef, ViewChild} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FlawService } from '../services/flaw.service';
@@ -17,6 +17,16 @@ export class AddFlawComponent implements OnInit {
   addFlawForm: FormGroup;
   fileSelected: File;
   flaw: {};
+  ipFile={
+    'name':"",
+    'value':""
+  };
+  opFile={
+    'name':"",
+    'value':""
+  };
+  @ViewChild('inputFile') inputFile: ElementRef;
+  @ViewChild('outputFile') outputFile: ElementRef;
 
   ngOnInit() {
     this.addFlawForm = new FormGroup({
@@ -36,8 +46,32 @@ export class AddFlawComponent implements OnInit {
       'author': new FormControl(null, [Validators.required])
     });
   }
+  onInputFile(event) {
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.ipFile.name=file.name;
+        this.ipFile.value=reader.result.split(',')[1];
+      };
+    }
+  }
+
+  onOutputFile(event) {
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.opFile.name=file.name;
+        this.opFile.value=reader.result.split(',')[1];
+      };
+    }
+  }
 
   addFlaw(navigate: boolean){
+    console.log(this.ipFile.value);
     this.flaw = {
       qCode: this.addFlawForm.value.qCode,
       qName: this.addFlawForm.value.qName,
@@ -48,8 +82,8 @@ export class AddFlawComponent implements OnInit {
       testcase: this.addFlawForm.value.testcase,
       explain: this.addFlawForm.value.explain,
       points: this.addFlawForm.value.points,
-      ipFile: this.addFlawForm.value.ipFile,
-      opFile: this.addFlawForm.value.opFile,
+      ipFile: this.ipFile,
+      opFile: this.opFile,
       timeLimit: this.addFlawForm.value.timeLimit,
       sourceLimit: this.addFlawForm.value.sourceLimit,
       author: this.addFlawForm.value.author

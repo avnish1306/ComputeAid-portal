@@ -21,7 +21,7 @@ const subSchema = mongoose.Schema({
     result:{
         type: String
     },
-    score: {
+    points: {
         type: Number,
         default:0
     },

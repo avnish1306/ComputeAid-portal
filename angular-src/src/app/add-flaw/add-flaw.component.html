@@ -61,14 +61,14 @@
       </div></div>
       <div class="row"><div class="col-6">
           <div class="form-group">
-            <input type="file" class="form-control rounded-0 form-control-lg" placeholder="Input File" formControlName="ipFile">
+            <input type="file" class="form-control rounded-0 form-control-lg" placeholder="Input File" id="ipFile" (change)="onInputFile($event)" formControlName="ipFile" #inputFile>
             <div *ngIf="!addFlawForm.get('ipFile').valid && addFlawForm.get('ipFile').touched" class="invalid-feedback">
               Input File is required.
             </div>
           </div>
       </div><div class="col-6">
           <div class="form-group">
-            <input type="file" class="form-control rounded-0 form-control-lg" placeholder="Output File" formControlName="opFile">
+            <input type="file" class="form-control rounded-0 form-control-lg" placeholder="Output File" id="opFile" (change)="onOutputFile($event)" formControlName="opFile" #outputFile>
             <div *ngIf="!addFlawForm.get('opFile').valid && addFlawForm.get('opFile').touched" class="invalid-feedback">
               Output File is required.
             </div>
