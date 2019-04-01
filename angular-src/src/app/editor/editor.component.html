@@ -2,11 +2,20 @@
 
 <form [formGroup]="codeForm" (ngSubmit)="submit()">
 <div class="form-group">
-  <textarea class="form-control rounded-0" style="font-family:'Courier New', Courier, monospace;" rows="20" placeholder="Solution" formControlName="code"></textarea>
+  <textarea class="form-control rounded-0" style="font-family:'Courier New', Courier, monospace;" placeholder="Solution" formControlName="code"></textarea>
+  <div ace-editor
+       [(text)]="code" 
+       [mode]="'c_cpp'" 
+       [theme]="'eclipse'"
+       [options]="options"
+       [readOnly]="false"
+       style="min-height: 600px; width:100%; overflow: auto;">
+  </div>
   <div *ngIf="!codeForm.get('code').valid && codeForm.get('code').touched" class="invalid-feedback">
     Description is required.
   </div>
 </div>
+
 <div class="form-group">
   <select  class="form-control rounded-0 form-control-lg" placeholder="Code" formControlName="qCode">
     <option value="" [selected]="true">Select Language</option>

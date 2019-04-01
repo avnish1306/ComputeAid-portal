@@ -1,3 +1,7 @@
+
+<div *ngIf="!isEligible"><h3>You are not eligible for BugHunt.<br>Talk to Coordinators</h3></div>
+<div *ngIf="isAttempt&&isEligible"><h3>You have already attempetd this.<br>Talk to Coordinators</h3></div>
+<div *ngIf="!isAttempt&&isEligible">
 <div class="row">
   <div class="col-md-1">
       <ul class="list-group">
@@ -45,6 +49,11 @@
       <br>
   </div>
 </div>
+<div class="row">
+    <div class="float-right">
+            <button *ngIf="index==ques.length-1" class="btn btn-primary" (click)="submitSol()"><i class="fa fa-plus-circle"></i> Submit</button>
+    </div>
+</div>
 <!--div class="modal fade" id="solvedModal" tabindex="-1" role="dialog" aria-labelledby="solvedModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -62,3 +71,4 @@
       </div>
   </div>
 </div-->
+</div>
