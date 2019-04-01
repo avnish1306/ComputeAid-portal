@@ -84,6 +84,7 @@ const appRoutes: Routes = [
     AuthGuard,
     AdminAuthGuard
   ],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

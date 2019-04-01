@@ -29,6 +29,7 @@ export class FlawComponent implements OnInit {
     welcome: string = "<h2>Welcome</h2><h3>to</h3><h1>Flawless</h1><br><br><p>Click on any question to begin</p>";
     author: string;
     users = [];
+    user;
     id: string;
     qCode; ipFormat; opFormat; testcase; constraint; explain; timeLimit; sourceLimit; desc; others;
     solved;
@@ -42,6 +43,7 @@ export class FlawComponent implements OnInit {
   ngOnInit() {
     this.flawService.getAllflaws().subscribe(
       data => {
+        this.user = JSON.parse(localStorage.getItem('user')).name;
         this.flaws = data.flaws;
         this.solved = new Array(this.flaws.length).fill(false);
         this.flags = new Array(this.flaws.length).fill("");

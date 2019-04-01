@@ -1,29 +1,34 @@
-<h2>Submit a solution for {{qCode}}:</h2>
+<h2 style="color: orange">Submit a solution for {{qCode}}:</h2>
 
 <form [formGroup]="codeForm" (ngSubmit)="submit()">
-<div class="form-group">
-  <textarea class="form-control rounded-0" style="font-family:'Courier New', Courier, monospace;" placeholder="Solution" formControlName="code"></textarea>
-  <div ace-editor
-       [(text)]="code" 
-       [mode]="'c_cpp'" 
-       [theme]="'eclipse'"
-       [options]="options"
-       [readOnly]="false"
-       style="min-height: 600px; width:100%; overflow: auto;">
-  </div>
-  <div *ngIf="!codeForm.get('code').valid && codeForm.get('code').touched" class="invalid-feedback">
-    Description is required.
-  </div>
+  <div class="card">
+  <div class="card-header input-group">
+    <div class="input-group-prepend"><span class="input-group-text" id="modeSelect">Language: </span></div>
+      <select class="form-control rounded-0" style="max-width: 100px;" placeholder="Code" formControlName="qCode" aria-describedby="modeSelect" (change)="setMode()">
+      <option value="c" [selected]="true">C</option>
+      <option value="cpp">CPP</option>
+      <option value="java">JAVA</option>
+      <option value="python">PYTHON</option>
+      </select>
+    <div class="input-group-prepend"><span class="input-group-text" id="themeSelect">Theme: </span></div>
+      <select  class="form-control rounded-0" style="max-width: 150px;" formControlName="theme" aria-describedby="themeSelect" (change)="setTheme()">
+      <option value="eclipse" [selected]="true">Eclipse</option>
+      <option value="dracula">Dracula</option>
+      <option value="twilight">Twilight</option>
+      </select>
+      <span class="input-group-text headOfEditor float-right">Paste your code here</span>
 </div>
-
-<div class="form-group">
-  <select  class="form-control rounded-0 form-control-lg" placeholder="Code" formControlName="qCode">
-    <option value="" [selected]="true">Select Language</option>
-    <option *ngFor="let lan of languages" value="{{ lan }}">{{ lan }}</option>
-    </select>
-    <div *ngIf="!codeForm.get('qCode').valid && codeForm.get('qCode').touched" class="invalid-feedback">
-      Select Language !!!
-    </div>
-</div>
-<button type="submit" class="btn btn-success" [disabled]="!codeForm.valid">Submit</button>
+  <div class="card-body" style="padding: 0px;">
+    <div class="aceEditor" (input)="usedBefore=true" ace-editor [(text)]="code" [mode]="editMode" [theme]="editTheme" [options]="options" [readOnly]="false"></div>
+  </div>
+  <div class="card-footer">
+      <div class="alert alert-{{bootstrapclass}} alert-dismissible fade show" role="alert" style="width: 400px;">
+          <strong>{{resultMsg}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+  <button type="submit" class="btn btn-success float-right">Submit</button>
+  </div>
+  </div>
 </form>
