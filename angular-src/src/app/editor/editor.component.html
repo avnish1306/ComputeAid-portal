@@ -1,8 +1,8 @@
-<h2>Submit a solution for {{qCode}}</h2>
+<h2>Submit a solution for {{qCode}}:</h2>
 
 <form [formGroup]="codeForm" (ngSubmit)="submit()">
 <div class="form-group">
-  <textarea class="form-control rounded-0" style="font-family:'Courier New', Courier, monospace;" ace-editor rows="20" placeholder="Solution" formControlName="code"></textarea>
+  <textarea class="form-control rounded-0" style="font-family:'Courier New', Courier, monospace;" rows="20" placeholder="Solution" formControlName="code"></textarea>
   <div *ngIf="!codeForm.get('code').valid && codeForm.get('code').touched" class="invalid-feedback">
     Description is required.
   </div>

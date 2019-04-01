@@ -67,6 +67,50 @@ router.post('/add',Auth.authenticateAll,  (req, res, next) => {
     }
 });
 
+router.post('/execute', function(req, res) {
+    fs.writeFile("C:\\Users\\user\\Desktop\\submitfile."+req.body.l,req.body.c, function(err) {
+        if(err) {
+            return console.log(err);
+        }
+    }); 
+    // fs.readFile("C:\\Users\\user\\Desktop\\input.txt",'utf8',function(err, contents) {
+    //     input = contents;
+    //     console.log(input);
+    // });
+    var input = fs.readFileSync("C:\\Users\\user\\Desktop\\input.txt",'utf8').toString();
+    var output = fs.readFileSync("C:\\Users\\user\\Desktop\\output.txt",'utf8').toString();
+    let resultPromise;
+    if(req.body.l == 'c')
+        resultPromise = c.runFile('C:\\Users\\user\\Desktop\\submitfile.c', { stdin: input, timeout: 1000});
+    if(req.body.l == 'cpp')
+        resultPromise = cpp.runFile('C:\\Users\\user\\Desktop\\submitfile.cpp', { stdin: input, timeout: 1000});
+    if(req.body.l == 'java')
+        resultPromise = java.runFile('C:\\Users\\user\\Desktop\\submitfile.java', { stdin: input, timeout: 1000});
+    if(req.body.l == 'py')
+        resultPromise = python.runFile('C:\\Users\\user\\Desktop\\submitfile.py', { stdin: input, timeout: 1000});
+    resultPromise
+        .then(result => {
+            if(result.errorType == "run-time") {
+                if(result.exitCode == null)
+                  res.status(200).send({res: result, code: 4});
+                if(result.exitCode > 0)
+                  res.status(200).send({res: result, code: 3});
+            }
+            else
+            if(result.errorType == "compile-time") {
+                res.status(200).send({res: result, code: 2});
+            }
+            else
+            if(output == result.stdout)
+              res.status(200).send({res: result, code: 1});
+            else
+              res.status(200).send({res: result, code: 0});
+        })
+        .catch(err => {
+            res.status(200).send(err);
+        });
+});
+
 router.post('/saveAns',Auth.authenticateAll,(req,res,next)=>{
     User.findOne({'name':req.user.name},(err,user)=>{
         if(err){

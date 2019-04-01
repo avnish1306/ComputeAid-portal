@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FlawService } from '../services/flaw.service';
 
 @Component({
   selector: 'app-editor',
@@ -9,8 +10,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class EditorComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
-  qCode;
+  constructor(private route: ActivatedRoute, private flawService: FlawService) { }
+  qCode; userId;
   code: string;
   languages = ['C','CPP','JAVA','PYTHON'];
   lang: string;
@@ -20,6 +21,7 @@ export class EditorComponent implements OnInit {
 
   ngOnInit() {
     this.qCode = this.route.snapshot.paramMap.get('qCode');
+    this.userId = JSON.parse(localStorage.getItem('user')).name;
     this.codeForm = new FormGroup({
       'qCode': new FormControl(null, [Validators.required]),
       'code': new FormControl(null, [Validators.required]),
@@ -36,13 +38,13 @@ export class EditorComponent implements OnInit {
         this.lang = 'java';
     if(this.lang == 'PYTHON')
         this.lang = 'PY';
-    // this._enrollment.evaluate({c: this.code, l: this.lang}).subscribe(
-    //   data => { console.log('Success', data);
-    //   this.result = data;
-    //   this.assignClass();
-    //    },
-    //   error => console.log('Error', error),
-    // );
+    this.flawService.execute({c: this.code, l: this.lang, q: this.qCode, u: this.userId}).subscribe(
+      data => { console.log('Success', data);
+      this.result = data;
+      this.assignClass();
+       },
+      error => console.log('Error', error),
+    );
   }
 
   assignClass() {
