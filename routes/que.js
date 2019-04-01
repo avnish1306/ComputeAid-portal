@@ -100,7 +100,9 @@ router.get('/', Auth.authenticateAll,  (req, res, next) => {
             res.status(200).json({
                 status: 1,
                 ques: ques,
-                submission: user.submission
+                submission: user.submission,
+                isEligible:user.contests.bughunt.isEligible,
+                isAttempt:user.contests.bughunt.status
             });
         })
         

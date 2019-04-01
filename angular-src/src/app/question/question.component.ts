@@ -36,6 +36,8 @@ export class QuestionComponent implements OnInit {
   index: number;
   opt;
   sol;
+  isEligible=false;
+  isAttempt=false;
   submission;
   submitted=[false,false,false,false];
   selectedOpt=[false,false,false,false];
@@ -50,6 +52,8 @@ export class QuestionComponent implements OnInit {
       data => {
         this.ques = data.ques;
         this.submission=data.submission;
+        this.isEligible=data.isEligible;
+        this.isAttempt=data.isAttempt;
         this.saved = new Array(this.ques.length);
         this.sol = new Array(this.ques.length).fill([]);
         for(let i=0;i<this.ques.length;i++){
@@ -227,6 +231,18 @@ export class QuestionComponent implements OnInit {
           this.router.navigate(['/ques/add']);
         else
           this.displayQue(this.index-1);
+      },
+      error => {
+        this.notificationsService.error("Oops!!", JSON.parse(error._body).error, {timeOut: 5000, showProgressBar: true, pauseOnHover: true, clickToClose: true, animate: 'fromRight'});
+      }
+    );
+  }
+  submitSol(){
+    this.quesService.submitSol().subscribe(
+      data => {
+        this.notificationsService.success("Success", data.msg, {timeOut: 5000, showProgressBar: true, pauseOnHover: true, clickToClose: true, animate: 'fromRight'});
+        this.ngOnInit();
+        this.router.navigate(['/']);
       },
       error => {
         this.notificationsService.error("Oops!!", JSON.parse(error._body).error, {timeOut: 5000, showProgressBar: true, pauseOnHover: true, clickToClose: true, animate: 'fromRight'});

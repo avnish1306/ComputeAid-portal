@@ -17,6 +17,7 @@ export class EditorComponent implements OnInit {
   result: any;
   bootstrapclass: string = 'info';
   codeForm: FormGroup;
+  text="Avnish";
 
   ngOnInit() {
     this.qCode = this.route.snapshot.paramMap.get('qCode');
@@ -36,6 +37,7 @@ export class EditorComponent implements OnInit {
         this.lang = 'java';
     if(this.lang == 'PYTHON')
         this.lang = 'PY';
+    console.log(this.codeForm.value.code);
     // this._enrollment.evaluate({c: this.code, l: this.lang}).subscribe(
     //   data => { console.log('Success', data);
     //   this.result = data;

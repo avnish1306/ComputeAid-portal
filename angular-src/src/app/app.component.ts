@@ -22,22 +22,23 @@ export class AppComponent implements OnInit{
       'left': 0,
       'right': 0,
       'bottom': 0,
+      'background-color':'black'
     };
 
 	  this.myParams = {
       particles: {
         number: {
-          value: 200,
+          value: 100,
           density: {
             enable: true,
-            value_area: 400
+            value_area: 100
           }
         },
         color: {
-          value: "#000000"
+          value: "#ffffff"
         },
         shape: {
-          type: "triangle",
+          type: "circle",
           stroke: {
             width: 0,
             color: "#000000"

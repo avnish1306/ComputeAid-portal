@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Que=require('./que');
+const Flaw=require('./flaw');
 
 const userSchema = mongoose.Schema({
     name: {
@@ -101,6 +102,22 @@ const userSchema = mongoose.Schema({
         status:{
             type:Number,
             default:1
+        }
+    }],
+    flawSubmission:[{
+        qCode: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Flaw'
+        },
+        code:[{
+            type:String
+        }],
+        result:{
+            type:String
+        },
+        status:{
+            type:String,
+            default:""
         }
     }]
 });

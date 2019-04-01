@@ -40,7 +40,7 @@ app.use("/user", user);
 app.use("/chals", chals);
 app.use("/ques", que);
 app.use("/flaws",flaw);
-
+console.log(__dirname);
 // Setting Up Error Messages and Status
 app.use((req, res, next) => {
     const error = new Error("Not Found");
